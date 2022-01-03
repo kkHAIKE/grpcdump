@@ -31,9 +31,9 @@ but u should use [pcap-filter](https://www.tcpdump.org/manpages/pcap-filter.7.ht
 ### some case
 use with my test cmd
 
-1. `./test` + `./test -client`
+1. `./test` + `./test -client`:
     `grpcdump -i any -P "/test\.Foo/Bar" "host 127.0.0.1 and port 9000"`
-2. `./test -ref=false` + `./test -client`
+2. `./test -ref=false` + `./test -client`:
     `grpcdump -i lo0 -P "/test\.Foo/Bar" -I .. -f grpcdump/test/pb/foo.proto "host 127.0.0.1 and port 9000"`
 
 ## require
