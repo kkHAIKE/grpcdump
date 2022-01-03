@@ -50,7 +50,7 @@ func main() {
 		},
 		&cli.BoolFlag{
 			Name:  "force",
-			Usage: "enable on-the-fly(use with BPFilter)",
+			Usage: "enable on-the-fly(use with pcap-filter)",
 		},
 		&cli.BoolFlag{
 			Name:  "hide-no-path",
@@ -71,7 +71,7 @@ func main() {
 		},
 	}
 
-	app.ArgsUsage = "BPFilter"
+	app.ArgsUsage = "pcap-filter"
 	app.Action = capAction
 
 	c := make(chan os.Signal, 1)

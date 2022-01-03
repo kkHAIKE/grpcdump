@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
+	"flag"
 	"net"
-	"os"
 
 	"grpcdump/test/pb"
 
@@ -20,12 +20,17 @@ func cli() {
 	cli.Bar(context.Background(), &pb.BarReq{Q: "alice"})
 }
 
+var ref = flag.Bool("ref", true, "use reflection")
+var client = flag.Bool("client", false, "client mode")
+
 func srv() {
 	srv := grpc.NewServer()
 	pb.RegisterFooServer(srv, &server{})
 
 	// reflection service
-	reflection.Register(srv)
+	if *ref {
+		reflection.Register(srv)
+	}
 
 	ln, err := net.Listen("tcp", ":9000")
 	if err != nil {
@@ -42,7 +47,8 @@ func (*server) Bar(ctx context.Context, req *pb.BarReq) (resp *pb.BarResp, err e
 }
 
 func main() {
-	if len(os.Args) > 1 && os.Args[1] == "client" {
+	flag.Parse()
+	if *client {
 		cli()
 		return
 	}

@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 	"log"
 	"strings"
-	"unicode/utf8"
+	"unicode"
 
 	"github.com/gookit/color"
 )
@@ -58,7 +58,13 @@ func (p h2Packet) CanPlain() bool {
 		return false
 	}
 
-	return utf8.Valid(p.Body[:n])
+	for _, c := range p.Body[:n] {
+		if !unicode.IsPrint(rune(c)) {
+			return false
+		}
+	}
+
+	return true
 }
 
 func (p h2Packet) HeaderString() string {
