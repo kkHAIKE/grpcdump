@@ -1,0 +1,15 @@
+syntax = "proto3";
+package test;
+option go_package = "grpcdump/test/pb";
+
+message BarReq {
+    string Q = 1;
+}
+
+message BarResp {
+    string R = 1;
+}
+
+service Foo {
+    rpc Bar(BarReq) returns(BarResp);
+}
