@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"log"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/gookit/color"
 )
@@ -47,6 +48,19 @@ func (p h2Packet) CanJson() bool {
 	return false
 }
 
+func (p h2Packet) CanPlain() bool {
+	// check 16 byte
+	n := 16
+	if n > len(p.Body) {
+		n = len(p.Body)
+	}
+	if n == 0 {
+		return false
+	}
+
+	return utf8.Valid(p.Body[:n])
+}
+
 func (p h2Packet) HeaderString() string {
 	var buf strings.Builder
 	// tcp 4 tuple
@@ -57,9 +71,9 @@ func (p h2Packet) HeaderString() string {
 	// print headers
 	for k, v := range p.Headers {
 		// ignore some use-less
-		if k == ":method" || k == ":scheme" || k == "te" || k == "user-agent" || k == "accept" || k == "content-length" {
-			continue
-		}
+		// if k == ":method" || k == ":scheme" || k == "te" || k == "user-agent" || k == "accept" || k == "content-length" {
+		// 	continue
+		// }
 
 		for _, vv := range v {
 			if k == ":path" || k == "<path" {
@@ -78,8 +92,11 @@ func (p h2Packet) HeaderBodyString() string {
 	}
 
 	if p.CanJson() {
-
 		return p.HeaderString() + color.FgLightYellow.Sprintf("%s\n", p.Body[5:])
+	}
+
+	if p.CanPlain() {
+		return p.HeaderString() + color.FgLightYellow.Sprintf("%s\n", p.Body)
 	}
 
 	return p.HeaderString() + color.FgLightYellow.Sprintf("%s\n", hex.Dump(p.Body))
