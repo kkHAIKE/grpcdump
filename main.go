@@ -50,7 +50,7 @@ func main() {
 		},
 		&cli.BoolFlag{
 			Name:  "force",
-			Usage: "enable on-the-fly(use with pcap-filter)",
+			Usage: "enable on-the-fly decode(use with pcap-filter)",
 		},
 		&cli.BoolFlag{
 			Name:  "hide-no-path",

@@ -8,6 +8,7 @@ A tcpdump like tool for auto decode protobuf in grpc h2c protocol
 - [ ] simple BPF compiler for pure go build (linux only)
 
 ## preview
+`<path` header is add by this tool
 ![show](capture.png)
 
 ## usage
@@ -22,7 +23,7 @@ but u should use [pcap-filter](https://www.tcpdump.org/manpages/pcap-filter.7.ht
 |interface|i|same as tcpdump
 |snapshot-length|s|same as tcpdump
 |path-regex|P|focus to show
-|force||enable on-the-fly(use with pcap-filter)
+|force||enable on-the-fly decode(use with pcap-filter)
 |hide-no-path||non-path packet can't decode
 |proto-include|I|use like protoc -I
 |proto-file|f|proto relative path about proto-include
