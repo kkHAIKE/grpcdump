@@ -1,10 +1,10 @@
 # grpcdump
-A tcpdump like tool for auto decode protobuf in grpc h2c protocol
+This is a tcpdump-like tool for automatically decoding Protobuf in the gRPC h2c protocol.
 
 ## feature
 - [x] h2c capture & decode
-- [x] grpc protbuf auto decode use [Reflection](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) service
-- [x] specify proto file manually if reflection not register
+- [x] auto decoding of Protobuf in gRPC using the [Reflection](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) service
+- [x] manual specification of the Proto file if reflection is not registered
 - [ ] simple BPF compiler for pure go build (linux only)
 
 ## preview
@@ -12,11 +12,11 @@ A tcpdump like tool for auto decode protobuf in grpc h2c protocol
 ![show](capture.png)
 
 ## usage
-this tool has one require param, `-i`, choose ur interface same as *tcpdump*.
+This tool has one required parameter `-i`, which allows you to choose your interface, similar to *tcpdump*.
 
-but u should use [pcap-filter](https://www.tcpdump.org/manpages/pcap-filter.7.html) to reduce memory in production environment (also same as *tcpdump*).
+However, in production environments, you should use [pcap-filter](https://www.tcpdump.org/manpages/pcap-filter.7.html) to reduce memory consumption, just like *tcpdump*.
 
-**not decode on-the-fly tcp stream defaultly** (tcp has been connected before capture, cuz of HPACK)
+By default, this tool does not decode the TCP stream on-the-fly (since HPACK requires the TCP connection to be established before capture).
 
 | parameter | short | description |
 |-|-|-|
